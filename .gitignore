@@ -1,3 +1,8 @@
-/public
+/public/uploads/postimages/*.jpeg
+/public/uploads/postimages/*.png
+/public/uploads/postimages/*.jpg
+/public/uploads/avatars/*.jpeg
+/public/uploads/avatars/*.jpg
+/public/uploads/avatars/*.png
 /node_modules
 /.idea
