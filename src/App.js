@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useUserStore } from "./hooks/useUserStore";
+import { ThemeProvider } from "@mui/material";
+import theme from "./theme";
+import routes from "./routes";
+import { RequireAuth } from "./components/router/LinkComposition";
+import { Route, Routes } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = observer(() => {
+    const { user, isAuthenticated } = useUserStore();
+    console.log(user)
+    return <ThemeProvider theme={theme}>
+        <Routes>
+            {routes.map(({ path, name, exact, Component, needAuth, ...rest }, key) => {
+                if (needAuth) {
+                    return <Route {...{ key, exact, path, name }} element={<RequireAuth isAuthenticated={isAuthenticated}>
+                        <Component {...rest} />
+                    </RequireAuth>} />
+                }
+                return <Route {...{ key, exact, path, name }} element={<Component {...rest} />} />
+            })}
+        </Routes>
+    </ThemeProvider>
+})
 
 export default App;
