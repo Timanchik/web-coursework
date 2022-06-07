@@ -1,3 +1,3 @@
-# Web-coursework (SimpleGram)
+# Node.js сервер (SimpleGram)
 ____
 Для удобства использования, сервер загружен в ветку server, а клиент в ветку client.
